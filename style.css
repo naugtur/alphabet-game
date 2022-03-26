@@ -23,7 +23,6 @@
   }
 } */
 
-
 :root {
   --radius: 5px;
   --large: 64px;
@@ -31,8 +30,6 @@
   --spacing: 15px;
   --font-size: 16px;
 }
-
-
 
 .flag.ua {
   background: linear-gradient(0deg, #ffdb00 50%, #0072c8 50%);
@@ -83,6 +80,7 @@ button {
   border: 12px solid var(--fg);
   color: var(--bg);
   cursor: pointer;
+  border-radius: var(--radius);
 }
 button:hover {
   box-shadow: 0 0 10px 0 var(--fg);
@@ -96,7 +94,9 @@ button:hover {
   width: 100%;
   outline: none;
 }
-
+.score {
+  text-align: right;
+}
 #progress {
   background-color: var(--good);
   width: 0%;
@@ -143,4 +143,31 @@ button:hover {
 
 .wrong .ans-wrap:before {
   content: "🙈";
+}
+
+.lookup {
+  background-color: var(--bg);
+  position: fixed;
+  top: 0;
+  left: 0;
+
+  overflow-x: hidden;
+  overflow-y: hidden;
+  height: 100%;
+  width: 0;
+}
+.help {
+  width: 120px;
+}
+.help:hover .lookup {
+  width: 12em;
+  overflow-y: auto;
+  border-right: 2px solid var(--fg);
+}
+.lookup table {
+  width: 12em;
+  padding: var(--spacing);
+}
+.lookup table td {
+  padding: 3px;
 }

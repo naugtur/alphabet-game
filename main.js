@@ -65,7 +65,7 @@ framework({
     },
     actions: {
         check(value) {
-            value = `${value}`.toLowerCase();
+            value = `${value}`.toLowerCase().trim();
             this.progress = calculateProgress(this.question.a, value)
             this.status = compare(this.question.a, value)
             if (this.status === STATUS.OK) {
