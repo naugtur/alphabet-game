@@ -12,7 +12,7 @@ function framework({ reactions, actions, data, dev = false, persist }) {
     try {
         if (persist) {
             const saved = JSON.parse(localStorage.getItem(persist) || '{}')
-            if (saved && saved.count > 0) {
+            if (saved && saved.count > 0 && !saved.error) {
                 data = saved
             }
         }
@@ -70,6 +70,8 @@ framework({
             this.status = compare(this.question.a, value)
             if (this.status === STATUS.OK) {
                 this.advanceSoon = true;
+                this.count += 1;
+
             }
         },
         skip() {
@@ -89,7 +91,7 @@ framework({
 
         function update($, store) {
             if (store.error) {
-                $('#game').innerText = 'Coś poszło nie tak: ' + store.error;
+                $('#errors').innerText = 'Coś poszło nie tak: ' + store.error;
             }
             $('#que').value = store.question.q;
             $('#game').setAttribute('class', store.status);
@@ -101,14 +103,17 @@ framework({
         function next($, store) {
             if (store.advanceSoon) {
                 store.advanceSoon = false;
-                const next = store.count + 1;
                 setTimeout(async () => {
                     try {
-                        store.question = await fetch();
-                        store.count = next;
-                        store.status = STATUS.START;
-                        $('#ans').value = '';
-                        store.progress = 0;
+                        const newQ = await fetch();
+                        if (newQ && newQ.q) {
+                            store.question = newQ;
+                            store.status = STATUS.START;
+                            $('#ans').value = '';
+                            store.progress = 0;
+                        } else {
+                            store.error = 'skończyły się pytania'
+                        }
                     } catch (error) {
                         console.error(error)
                         store.error = error.message

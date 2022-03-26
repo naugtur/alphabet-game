@@ -171,3 +171,12 @@ button:hover {
 .lookup table td {
   padding: 3px;
 }
+#errors {
+  background-color: var(--bad);
+  color: var(--bg);
+  position: fixed;
+  top: 0;
+  left: 0;
+  line-height: 1.5em;
+  width: 100%;
+}
