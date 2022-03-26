@@ -1,1 +1,1 @@
-# alphabet-game
+Propozycja frontendu do https://grazdanka.pl/

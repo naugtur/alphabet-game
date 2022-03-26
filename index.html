@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>grazdanka</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <section id="game">
+        <div class="flag ua"></div>
+        <div>
+            <span class="label">Polskie słowo zapisane alfabetem ukraińskim</span>
+            <input id="que" class="box" disabled>
+        </div>
+        <div class="ans-wrap">
+            <input id="ans" class="box" type="text" placeholder="Twoja odpowiedź" value="" autocomplete="off"
+                spellcheck="false">
+            <div id="progress"> </div>
+            <div class="box hint"> </div>
+        </div>
+        <button id="nxt" class="box">dalej</button>
+        <div> 👍 <span id="count"></span></div>
+    </section>
+    <section class="stuff">
+        Ta strona nie używa cookies.
+    </section>
+    <script src="main.js"></script>
+</body>
+
+</html>

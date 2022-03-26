@@ -1,0 +1,146 @@
+:root {
+  --good: #8f7;
+  --bad: #f87;
+  --fg: #fff;
+  --bg: #333;
+}
+/* can follow user's settings
+@media (prefers-color-scheme: light) {
+  :root {
+    --good: #6c4;
+    --bad: #c64;
+    --fg: #333;
+    --bg: #fff;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --good: #8f7;
+    --bad: #f87;
+    --fg: #fff;
+    --bg: #333;
+  }
+} */
+
+
+:root {
+  --radius: 5px;
+  --large: 64px;
+  --box-size: 320px;
+  --spacing: 15px;
+  --font-size: 16px;
+}
+
+
+
+.flag.ua {
+  background: linear-gradient(0deg, #ffdb00 50%, #0072c8 50%);
+}
+
+body {
+  font-size: var(--font-size);
+  background-color: var(--bg);
+  color: var(--fg);
+  font-family: sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+  transition: all 0.5s ease;
+}
+
+.flag {
+  height: var(--large);
+}
+
+#game {
+  margin: 0 auto;
+  padding: var(--spacing);
+  min-width: var(--box-size);
+  max-width: calc(var(--box-size) * 1.5);
+  min-height: var(--box-size);
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  /* border: 2px solid #888; */
+  justify-content: space-between;
+  gap: calc(var(--spacing) * 2);
+}
+.stuff {
+  margin-top: var(--large);
+  text-align: center;
+  font-size: 0.8rem;
+}
+
+input {
+  background-color: var(--bg);
+  color: var(--fg);
+  letter-spacing: 0.3em;
+}
+button {
+  background-color: var(--fg);
+  border: 12px solid var(--fg);
+  color: var(--bg);
+  cursor: pointer;
+}
+button:hover {
+  box-shadow: 0 0 10px 0 var(--fg);
+}
+.box {
+  border: 2px solid var(--fg);
+  border-radius: var(--radius);
+  padding: var(--spacing);
+  font-size: 1.2rem;
+  font-family: sans-serif;
+  width: 100%;
+  outline: none;
+}
+
+#progress {
+  background-color: var(--good);
+  width: 0%;
+  height: var(--radius);
+  margin-top: var(--radius);
+  border-radius: var(--radius);
+}
+.label {
+  background-color: var(--bg);
+  margin-left: 10px;
+  position: relative;
+  top: 0.5em;
+  padding: 2px;
+  font-size: 11px;
+}
+.hint {
+  color: var(--good);
+  border: none;
+}
+
+.wrong #ans {
+  border-color: var(--bad);
+  color: var(--bad);
+}
+
+.ok #ans {
+  border-color: var(--good);
+  color: var(--good);
+}
+
+.ans-wrap {
+  position: relative;
+}
+.ans-wrap:before {
+  position: absolute;
+  right: 15px;
+  top: var(--spacing);
+  font-size: 20px;
+}
+.ok .ans-wrap:before {
+  content: "😄";
+  color: var(--good);
+}
+
+.wrong .ans-wrap:before {
+  content: "🙈";
+}
