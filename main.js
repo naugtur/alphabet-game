@@ -11,7 +11,7 @@ const fetch = Array.prototype.pop.bind([
 function framework({ reactions, actions, data, dev = false, persist }) {
     try {
         if (persist) {
-            const saved = JSON.parse(localStorage.getItem(persist) || '')
+            const saved = JSON.parse(localStorage.getItem(persist) || '{}')
             if (saved && saved.count > 0) {
                 data = saved
             }
