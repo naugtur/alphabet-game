@@ -24,7 +24,7 @@
 } */
 
 :root {
-  --radius: 5px;
+  --radius: 10px;
   --large: 64px;
   --box-size: 320px;
   --spacing: 15px;
@@ -48,7 +48,7 @@ body {
 }
 
 .flag {
-  height: var(--large);
+ width: var(--box-size);
 }
 
 #game {
@@ -77,10 +77,12 @@ input {
 }
 button {
   background-color: var(--fg);
-  border: 12px solid var(--fg);
+  padding: var(--radius);
+  border: none;
   color: var(--bg);
   cursor: pointer;
   border-radius: var(--radius);
+  font-size: 1.5em;
 }
 button:hover {
   box-shadow: 0 0 10px 0 var(--fg);
@@ -150,6 +152,7 @@ button:hover {
   position: fixed;
   top: 0;
   left: 0;
+  z-index:2;
 
   overflow-x: hidden;
   overflow-y: hidden;
