@@ -1,12 +1,88 @@
 'use strict';
 
-// TODO: replace with real fetching from the server
-const fetch = Array.prototype.pop.bind([
-    { q: 'детективістични', a: 'detektywistyczny' },
-    { q: 'зажаленє', a: 'zażalenie' },
-    { q: 'інцидентални', a: 'incydentalny' },
-    { q: 'маржа', a: 'marża' },
-]);
+
+const words = `
+dom;kot;kawałek;mokre;mało;cześć;ukojenie;sprzęgła;przyczepność;pomalować;przekładnie;tango;systematizacja;narzut;krętactwo;mandolina;karat;wytrwałość;wyprasować;upolować;zbawiciel;dostawanie;zwerbować;głaskał;sądownictwo;oczywisty;niezależność;wolny;dodaje;kleik;torus;z drewna;dziwne;komitet;przetransportować;egzosfera;skartografować;zielony;alkaliczne;orientacja;stan zawieszenia;charyzma;flora;wojsko;zawoalować;poprzeczny;grzmot;ból ucha;liniowiec;mędrkować;nabój;siano;spetryfikować;jaskra;amfiia;album;heteroseksualność;zło;przyrząd;karty;zamyślony;zamocowane;ścierność;kamera;solenie;nieugięty;magazyn;wykonturować;odsolenie;koziorożec alpejski;pozaszywać;smutki;chromatografia;materializm;kombinacja;świergotek;lektyna;panorama;rozmagnesowywać;aromat;doprecyzować;malarz;serum;stagnacja;nonszalancja;galeria;biomasa;harmonogram;apraksja;płótna;kleszcze;chrzan;alarmowanie;kucanie;odsiadywać;żółtaczka;nowela;łóżko;wklej;cegła;strumień;trener;Ziemia;śródmieście;drzewo;obsada;pogoda;komfort;żarówka;masło;pierścienie;plecy;dochód;zagięcie;nożyczki;szczegół;promieni;palec u nogi;gospodarstwo rolne;ramię;kamień;Popatrz;kochanie;serce;jajka;piasek;powód;włóczęga;kotek;biegać;początek;tarcie;sędzia;słowo;płótno;kopalnia;ciasta;poduszka;kaczki;formularz;cmentarz;fabuła;koszula;dzwon;znaczek;rękawica,mama;skarpetka;zaszokować;puchar;fasola;kredka;kłopoty;bagażnik;ziemniak;choroba;książki;ciężarówki;papier;rolka;odpowiedź;z przodu;klejnot;dźwięk;opinia;sznurek;dzwonki;linia;biznes;słońce;warzywo;grzmot;brama;karta;korek;kreda;sypialnia;olbrzymy;kapusta;koralik;efekt;bitwa;krzaki;indyk;półka;struktura;niespodzianka;wymiana;doświadczenie;część;niewolnik;przedstawiciel;wiedza;barszczyk;szczeniak,szczudła;praca;wołowina;gitara;przekazywać;przyplątał;zakupione;trójścian;glany;scedować;zreferować;owsiany;łańcuchowy;pokorniutki;czerń;twórczość;wirtuozeria;poddzierżawić;ekologia;pies;szczoteczka;pożyczony;stypulować;zakryty;propan;okopowy;przekonywać;czekolada;plądrujący;pomedytować;tendencja;łóżko;księgowość;fotel;niektóry;planować;preliminarny;medalik;przekładowy;korzeniowy;skórzany;niesmaczny;pojąć;nadgorliwy;sprzedawca;wyrobów;żelaznych;problem;niezasobny;biczowanie;nagrywać;etymologiczny;plankton;wieżowy;zbiegać się;substancjalny;zapalenie naczyń;mimika;chart;niegotowy;zsynchronizować;niższy;naciąganie;półwysep;chłopski;kamizelka;obszarpywać;własność;dochodowy;wymiarowość;drożdże piwne;reprodukować;omdlenie;zwiastun;onkolog;niegrzeczny;ukośny;zrutynizować;pokrewny;mahoń;bezterminowy;hazardowny;mongolski;dyskutować;półprzewodnikowy;językowy;odtwarzalny;archipelag;rozpluskiwać;pasy transmisyjne;odchylenie;szczur;
+`.trim().split(';');
+
+const alphabet = {
+    "a": "а",
+    "b": "б",
+    "c": "ц",
+    "d": "д",
+    "e": "е",
+    "f": "ф",
+    "g": "ґ",
+    "h": "г",
+    "i": "і",
+    "j": "й",
+    "k": "к",
+    "l": "л",
+    "ł": "л",
+    "m": "м",
+    "n": "н",
+    "o": "о",
+    "p": "п",
+    "r": "р",
+    "s": "с",
+    "t": "т",
+    "u": "у",
+    "w": "в",
+    "y": "и",
+    "z": "з",
+    "ż": "ж",
+    " ": " ",
+}
+const alphabetPairs = Object.entries(alphabet);
+const alphabetKeys = Object.keys(alphabet);
+
+const clomps = Object.entries({
+    "ch": "х",
+    "cz": "ч",
+    "sz": "ш",
+    "szcz": "щ",
+    "je": "є",
+    "ie": "є",
+    "ji": "ї",
+    "ju": "ю",
+    "iu": "ю",
+    "ja": "я",
+    "ia": "я"
+})
+
+const allConvertable = (word) => {
+    word = word.toLowerCase();
+    // all characters of the word are found in alphabetKeys;
+    return word.split('').every(c => alphabetKeys.includes(c));
+}
+const getWord = async () => {
+    // return a random element from words array
+    let word;
+    do {
+        word = words[Math.floor(Math.random() * words.length)];
+    } while (!allConvertable(word));
+    return word;
+}
+
+
+function translate(word) {
+    word = word.toLowerCase();
+    for (const [clomp, repl] of clomps) {
+        word = word.replaceAll(clomp, repl);
+    }
+    for (const [lat, cyr] of alphabetPairs) {
+        word = word.replaceAll(lat, cyr);
+    }
+    return word;
+}
+
+const getQuestion = async () => {
+    const word = await getWord();
+    return {
+        q: translate(word),
+        a: word
+    }
+}
 
 function framework({ reactions, actions, data, dev = false, persist }) {
     try {
@@ -105,7 +181,7 @@ framework({
                 store.advanceSoon = false;
                 setTimeout(async () => {
                     try {
-                        const newQ = await fetch();
+                        const newQ = await getQuestion();
                         if (newQ && newQ.q) {
                             store.question = newQ;
                             store.status = STATUS.START;

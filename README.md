@@ -1,1 +1,1 @@
-Propozycja frontendu do https://grazdanka.pl/
+Gra wspomagająca naukę alfabetu ukraińskiego
