@@ -1,9 +1,17 @@
 'use strict';
 
 
-const words = `
-dom;kot;kawałek;mokre;mało;cześć;ukojenie;sprzęgła;przyczepność;pomalować;przekładnie;tango;systematizacja;narzut;krętactwo;mandolina;karat;wytrwałość;wyprasować;upolować;zbawiciel;dostawanie;zwerbować;głaskał;sądownictwo;oczywisty;niezależność;wolny;dodaje;kleik;torus;z drewna;dziwne;komitet;przetransportować;egzosfera;skartografować;zielony;alkaliczne;orientacja;stan zawieszenia;charyzma;flora;wojsko;zawoalować;poprzeczny;grzmot;ból ucha;liniowiec;mędrkować;nabój;siano;spetryfikować;jaskra;amfiia;album;heteroseksualność;zło;przyrząd;karty;zamyślony;zamocowane;ścierność;kamera;solenie;nieugięty;magazyn;wykonturować;odsolenie;koziorożec alpejski;pozaszywać;smutki;chromatografia;materializm;kombinacja;świergotek;lektyna;panorama;rozmagnesowywać;aromat;doprecyzować;malarz;serum;stagnacja;nonszalancja;galeria;biomasa;harmonogram;apraksja;płótna;kleszcze;chrzan;alarmowanie;kucanie;odsiadywać;żółtaczka;nowela;łóżko;wklej;cegła;strumień;trener;Ziemia;śródmieście;drzewo;obsada;pogoda;komfort;żarówka;masło;pierścienie;plecy;dochód;zagięcie;nożyczki;szczegół;promieni;palec u nogi;gospodarstwo rolne;ramię;kamień;Popatrz;kochanie;serce;jajka;piasek;powód;włóczęga;kotek;biegać;początek;tarcie;sędzia;słowo;płótno;kopalnia;ciasta;poduszka;kaczki;formularz;cmentarz;fabuła;koszula;dzwon;znaczek;rękawica,mama;skarpetka;zaszokować;puchar;fasola;kredka;kłopoty;bagażnik;ziemniak;choroba;książki;ciężarówki;papier;rolka;odpowiedź;z przodu;klejnot;dźwięk;opinia;sznurek;dzwonki;linia;biznes;słońce;warzywo;grzmot;brama;karta;korek;kreda;sypialnia;olbrzymy;kapusta;koralik;efekt;bitwa;krzaki;indyk;półka;struktura;niespodzianka;wymiana;doświadczenie;część;niewolnik;przedstawiciel;wiedza;barszczyk;szczeniak,szczudła;praca;wołowina;gitara;przekazywać;przyplątał;zakupione;trójścian;glany;scedować;zreferować;owsiany;łańcuchowy;pokorniutki;czerń;twórczość;wirtuozeria;poddzierżawić;ekologia;pies;szczoteczka;pożyczony;stypulować;zakryty;propan;okopowy;przekonywać;czekolada;plądrujący;pomedytować;tendencja;łóżko;księgowość;fotel;niektóry;planować;preliminarny;medalik;przekładowy;korzeniowy;skórzany;niesmaczny;pojąć;nadgorliwy;sprzedawca;wyrobów;żelaznych;problem;niezasobny;biczowanie;nagrywać;etymologiczny;plankton;wieżowy;zbiegać się;substancjalny;zapalenie naczyń;mimika;chart;niegotowy;zsynchronizować;niższy;naciąganie;półwysep;chłopski;kamizelka;obszarpywać;własność;dochodowy;wymiarowość;drożdże piwne;reprodukować;omdlenie;zwiastun;onkolog;niegrzeczny;ukośny;zrutynizować;pokrewny;mahoń;bezterminowy;hazardowny;mongolski;dyskutować;półprzewodnikowy;językowy;odtwarzalny;archipelag;rozpluskiwać;pasy transmisyjne;odchylenie;szczur;
-`.trim().split(';');
+const WORDS = `
+parowozy;zapomnienie;pozdrawiam;lala;popiół;dom;kot;kawałek;mokre;mało;cześć;ukojenie;sprzęgła;przyczepność;pomalować;przekładnie;tango;systematizacja;narzut;krętactwo;mandolina;karat;wytrwałość;wyprasować;upolować;zbawiciel;dostawanie;zwerbować;głaskał;sądownictwo;oczywisty;niezależność;wolny;dodaje;kleik;torus;z drewna;dziwne;komitet;przetransportować;egzosfera;skartografować;zielony;alkaliczne;orientacja;stan zawieszenia;charyzma;flora;wojsko;zawoalować;poprzeczny;grzmot;ból ucha;liniowiec;mędrkować;nabój;siano;spetryfikować;jaskra;amfiia;album;heteroseksualność;zło;przyrząd;karty;zamyślony;zamocowane;ścierność;kamera;solenie;nieugięty;magazyn;wykonturować;odsolenie;koziorożec alpejski;pozaszywać;smutki;chromatografia;materializm;kombinacja;świergotek;lektyna;panorama;rozmagnesowywać;aromat;doprecyzować;malarz;serum;stagnacja;nonszalancja;galeria;biomasa;harmonogram;apraksja;płótna;kleszcze;chrzan;alarmowanie;kucanie;odsiadywać;żółtaczka;nowela;łóżko;wklej;cegła;strumień;trener;Ziemia;śródmieście;drzewo;obsada;pogoda;komfort;żarówka;masło;pierścienie;plecy;dochód;zagięcie;nożyczki;szczegół;promieni;palec u nogi;gospodarstwo rolne;ramię;kamień;Popatrz;kochanie;serce;jajka;piasek;powód;włóczęga;kotek;biegać;początek;tarcie;sędzia;słowo;płótno;kopalnia;ciasta;poduszka;kaczki;formularz;cmentarz;fabuła;koszula;dzwon;znaczek;rękawica,mama;skarpetka;zaszokować;puchar;fasola;kredka;kłopoty;bagażnik;ziemniak;choroba;książki;ciężarówki;papier;rolka;odpowiedź;z przodu;klejnot;dźwięk;opinia;sznurek;dzwonki;linia;biznes;słońce;warzywo;grzmot;brama;karta;korek;kreda;sypialnia;olbrzymy;kapusta;koralik;efekt;bitwa;krzaki;indyk;półka;struktura;niespodzianka;wymiana;doświadczenie;część;niewolnik;przedstawiciel;wiedza;barszczyk;szczeniak,szczudła;praca;wołowina;gitara;przekazywać;przyplątał;zakupione;trójścian;glany;scedować;zreferować;owsiany;łańcuchowy;pokorniutki;czerń;twórczość;wirtuozeria;poddzierżawić;ekologia;pies;szczoteczka;pożyczony;stypulować;zakryty;propan;okopowy;przekonywać;czekolada;plądrujący;pomedytować;tendencja;łóżko;księgowość;fotel;niektóry;planować;preliminarny;medalik;przekładowy;korzeniowy;skórzany;niesmaczny;pojąć;nadgorliwy;sprzedawca;wyrobów;żelaznych;problem;niezasobny;biczowanie;nagrywać;etymologiczny;plankton;wieżowy;zbiegać się;substancjalny;zapalenie naczyń;mimika;chart;niegotowy;zsynchronizować;niższy;naciąganie;półwysep;chłopski;kamizelka;obszarpywać;własność;dochodowy;wymiarowość;drożdże piwne;reprodukować;omdlenie;zwiastun;onkolog;niegrzeczny;ukośny;zrutynizować;pokrewny;mahoń;bezterminowy;hazardowny;mongolski;dyskutować;półprzewodnikowy;językowy;odtwarzalny;archipelag;rozpluskiwać;pasy transmisyjne;odchylenie;szczur;parafina;tablica korkowa;kalafior;poranki
+`.trim().toLocaleLowerCase()
+.replaceAll('ś','s')
+.replaceAll('ć','c')
+.replaceAll('ń','n')
+.replaceAll('ź','z')
+.replaceAll('ó','o')
+.replaceAll('ę','e')
+.replaceAll('ą','a')
+.split(';').sort((a, b) => a.length - b.length);
 
 const alphabet = {
     "a": "а",
@@ -37,10 +45,10 @@ const alphabetPairs = Object.entries(alphabet);
 const alphabetKeys = Object.keys(alphabet);
 
 const clomps = Object.entries({
+    "szcz": "щ",
     "ch": "х",
     "cz": "ч",
     "sz": "ш",
-    "szcz": "щ",
     "je": "є",
     "ie": "є",
     "ji": "ї",
@@ -55,13 +63,19 @@ const allConvertable = (word) => {
     // all characters of the word are found in alphabetKeys;
     return word.split('').every(c => alphabetKeys.includes(c));
 }
-const getWord = async () => {
-    // return a random element from words array
+const getWord = () => {
+    // return a random element from WORDS array
     let word;
     do {
-        word = words[Math.floor(Math.random() * words.length)];
+        word = WORDS[Math.floor(Math.random() * WORDS.length)];
     } while (!allConvertable(word));
     return word;
+}
+
+function prepareWords(words) {
+    // randomize order of words and filter only those that are convertable, then return them in lowercase
+    words = words.sort(() => Math.random() - 0.5).sort(() => Math.random() - 0.5); // I know, it's bad
+    return words.filter(allConvertable)
 }
 
 
@@ -76,8 +90,7 @@ function translate(word) {
     return word;
 }
 
-const getQuestion = async () => {
-    const word = await getWord();
+const makeQuestion = (word) => {
     return {
         q: translate(word),
         a: word
@@ -133,11 +146,12 @@ const STATUS = { START: 'start', OK: 'ok', WRONG: 'wrong' };
 
 framework({
     dev: true,
-    persist: 'data1',
+    persist: 'data2',
     data: {
         question: { q: 'кворум', a: 'kworum' },
         count: 0,
-        status: STATUS.START
+        status: STATUS.START,
+        words:prepareWords(WORDS)
     },
     actions: {
         check(value) {
@@ -181,7 +195,7 @@ framework({
                 store.advanceSoon = false;
                 setTimeout(async () => {
                     try {
-                        const newQ = await getQuestion();
+                        const newQ = makeQuestion(store.words.pop());
                         if (newQ && newQ.q) {
                             store.question = newQ;
                             store.status = STATUS.START;
@@ -189,12 +203,13 @@ framework({
                             store.progress = 0;
                         } else {
                             store.error = 'skończyły się pytania'
+                            store.words = prepareWords(WORDS)
                         }
                     } catch (error) {
                         console.error(error)
                         store.error = error.message
                     }
-                }, 1500)
+                }, 1200)
             }
         },
     ],
