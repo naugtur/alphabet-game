@@ -1,18 +1,21 @@
 'use strict';
 
 
-const WORDS = `
+const WORDS = bezogonki(`
 parowozy;zapomnienie;pozdrawiam;lala;popiół;dom;kot;kawałek;mokre;mało;cześć;ukojenie;sprzęgła;przyczepność;pomalować;przekładnie;tango;systematizacja;narzut;krętactwo;mandolina;karat;wytrwałość;wyprasować;upolować;zbawiciel;dostawanie;zwerbować;głaskał;sądownictwo;oczywisty;niezależność;wolny;dodaje;kleik;torus;z drewna;dziwne;komitet;przetransportować;egzosfera;skartografować;zielony;alkaliczne;orientacja;stan zawieszenia;charyzma;flora;wojsko;zawoalować;poprzeczny;grzmot;ból ucha;liniowiec;mędrkować;nabój;siano;spetryfikować;jaskra;amfiia;album;heteroseksualność;zło;przyrząd;karty;zamyślony;zamocowane;ścierność;kamera;solenie;nieugięty;magazyn;wykonturować;odsolenie;koziorożec alpejski;pozaszywać;smutki;chromatografia;materializm;kombinacja;świergotek;lektyna;panorama;rozmagnesowywać;aromat;doprecyzować;malarz;serum;stagnacja;nonszalancja;galeria;biomasa;harmonogram;apraksja;płótna;kleszcze;chrzan;alarmowanie;kucanie;odsiadywać;żółtaczka;nowela;łóżko;wklej;cegła;strumień;trener;Ziemia;śródmieście;drzewo;obsada;pogoda;komfort;żarówka;masło;pierścienie;plecy;dochód;zagięcie;nożyczki;szczegół;promieni;palec u nogi;gospodarstwo rolne;ramię;kamień;Popatrz;kochanie;serce;jajka;piasek;powód;włóczęga;kotek;biegać;początek;tarcie;sędzia;słowo;płótno;kopalnia;ciasta;poduszka;kaczki;formularz;cmentarz;fabuła;koszula;dzwon;znaczek;rękawica,mama;skarpetka;zaszokować;puchar;fasola;kredka;kłopoty;bagażnik;ziemniak;choroba;książki;ciężarówki;papier;rolka;odpowiedź;z przodu;klejnot;dźwięk;opinia;sznurek;dzwonki;linia;biznes;słońce;warzywo;grzmot;brama;karta;korek;kreda;sypialnia;olbrzymy;kapusta;koralik;efekt;bitwa;krzaki;indyk;półka;struktura;niespodzianka;wymiana;doświadczenie;część;niewolnik;przedstawiciel;wiedza;barszczyk;szczeniak,szczudła;praca;wołowina;gitara;przekazywać;przyplątał;zakupione;trójścian;glany;scedować;zreferować;owsiany;łańcuchowy;pokorniutki;czerń;twórczość;wirtuozeria;poddzierżawić;ekologia;pies;szczoteczka;pożyczony;stypulować;zakryty;propan;okopowy;przekonywać;czekolada;plądrujący;pomedytować;tendencja;łóżko;księgowość;fotel;niektóry;planować;preliminarny;medalik;przekładowy;korzeniowy;skórzany;niesmaczny;pojąć;nadgorliwy;sprzedawca;wyrobów;żelaznych;problem;niezasobny;biczowanie;nagrywać;etymologiczny;plankton;wieżowy;zbiegać się;substancjalny;zapalenie naczyń;mimika;chart;niegotowy;zsynchronizować;niższy;naciąganie;półwysep;chłopski;kamizelka;obszarpywać;własność;dochodowy;wymiarowość;drożdże piwne;reprodukować;omdlenie;zwiastun;onkolog;niegrzeczny;ukośny;zrutynizować;pokrewny;mahoń;bezterminowy;hazardowny;mongolski;dyskutować;półprzewodnikowy;językowy;odtwarzalny;archipelag;rozpluskiwać;pasy transmisyjne;odchylenie;szczur;parafina;tablica korkowa;kalafior;poranki
-`.trim().toLocaleLowerCase()
-.replaceAll('ś','s')
-.replaceAll('ć','c')
-.replaceAll('ń','n')
-.replaceAll('ź','z')
-.replaceAll('ó','o')
-.replaceAll('ę','e')
-.replaceAll('ą','a')
-.split(';').sort((a, b) => a.length - b.length);
+`).trim().toLocaleLowerCase()
+    .split(';').sort((a, b) => a.length - b.length);
 
+function bezogonki(str) {
+    return str.replaceAll('ś', 's')
+        .replaceAll('ć', 'c')
+        .replaceAll('ń', 'n')
+        .replaceAll('ź', 'z')
+        .replaceAll('ó', 'o')
+        .replaceAll('ę', 'e')
+        .replaceAll('ą', 'a')
+        .replaceAll('ł', 'l')
+}
 const alphabet = {
     "a": "а",
     "b": "б",
@@ -26,7 +29,6 @@ const alphabet = {
     "j": "й",
     "k": "к",
     "l": "л",
-    "ł": "л",
     "m": "м",
     "n": "н",
     "o": "о",
@@ -151,11 +153,11 @@ framework({
         question: { q: 'кворум', a: 'kworum' },
         count: 0,
         status: STATUS.START,
-        words:prepareWords(WORDS)
+        words: prepareWords(WORDS)
     },
     actions: {
         check(value) {
-            value = `${value}`.toLowerCase().trim();
+            value = bezogonki(`${value}`.toLowerCase().trim());
             this.progress = calculateProgress(this.question.a, value)
             this.status = compare(this.question.a, value)
             if (this.status === STATUS.OK) {
